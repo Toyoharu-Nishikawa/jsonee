@@ -1,13 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>json editor</title>
+  <title>jsonee</title>
   <link rel="stylesheet" type="text/css" href="./styles/index.css">
   <link rel="stylesheet" type="text/css" href="./scripts/jsonee/node_modules/jsoneditor/dist/jsoneditor.min.css">
+  <script src="scripts/FileReader/FileReader.js"></script>
   <script defer src="./scripts/jsonee/node_modules/jsoneditor/dist/jsoneditor.min.js"></script>
   <script type=module src="./scripts/index.js"></script>
 </head>
 <body>
-  <div id="jsoneditor"></div>
+<div id="container">
+  <header>
+    <ul class="header">
+      <li class="title">
+        <h1>jsonee</h1>
+      </li>
+      <li>
+        <a >URL</a>
+        <input id="url" type="text" name="url">
+      </li>
+    </ul>
+  </header>
+  <main>
+    <div id="left">
+      <ul class="bar">
+        <ul class="switch">
+          <li class="selected">Text</li>
+          <li>Tree</li>
+        </ul>
+        <ul class="func">
+          <li> 
+            <a >read</a>
+            <input id="readFile" type="file" name="files" style="display:none;">
+          </li>
+          <li>save</li>
+        </ul>
+      </ul>
+      <div id="input"></div>
+    </div>
+    <div id="center">
+      <div id="send"></div>
+    </div>
+    <div id="right">
+      <ul class="bar">
+        <ul class="switch">
+          <li class="selected">Text</li>
+          <li>Tree</li>
+        </ul>
+        <ul class="func">
+          <li>save</li>
+        </ul>
+      </ul>
+      <div id="output"></div>
+    </div>
+  </main>
+  <footer>
+    <small>Copyright July 2018 jsonee assosiation</small>
+  </footer>
+</div>
 </body>
 </html>
