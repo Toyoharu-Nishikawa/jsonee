@@ -32,26 +32,16 @@ export const model ={
       const input = view.elements.input 
       input.style.height = inputHeight- 70 + "px"
       const inputOptions = {
-        modes:["text", "tree"]
+        modes:["text", "tree","code"]
       }
-      const inputText = window.localStorage.getItem("jsoneeInputText") ||{}
       this.inputEditor = new JSONEditor(input, inputOptions)
-      try{
-        const input = JSON.parse(inputText)
-        this.inputEditor.set(input)
-      }
-      catch(e){
-        console.log("input text in localStorage is not type of json")
-        window.localStorage.removeItem("jsoneeInputText")
-        this.inputEditor.set({})
-      }
   
       const outputElem = view.elements.right
       const output = view.elements.right
       const outputHeight = outputElem.clientHeight
       output.style.height = outputHeight- 70 + "px"
       const outputOptions = {
-        modes:["text", "tree"]
+        modes:["text", "tree","code"]
       }
       this.outputEditor = new JSONEditor(output, outputOptions)
     },
@@ -67,7 +57,7 @@ export const model ={
     editor.set("")
     const text = [];
     importFiles(element,text,()=>{
-      editor.set(text[0].text);
+      editor.set(JSON.parse(text[0].text));
     });
   },
   saveInput:function(){
@@ -97,7 +87,6 @@ export const model ={
     const outputEditor = this.editor.outputEditor
     const text = inputEditor.get()
     const sendText = serverFlag ? Object.assign(text,{jsoneeSendURL:url}):text
-    window.localStorage.setItem("jsoneeInputText",JSON.stringify(text)) 
 
     const data ={
       body: JSON.stringify(sendText),
