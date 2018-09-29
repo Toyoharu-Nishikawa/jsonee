@@ -86,7 +86,7 @@ export const model ={
     const inputEditor = this.editor.inputEditor
     const outputEditor = this.editor.outputEditor
     const text = inputEditor.get()
-    const sendText = serverFlag ? Object.assign(text,{jsoneeSendURL:url}):text
+    const sendText = serverFlag ? {text:text,jsoneeSendURL:url}:text
 
     const data ={
       body: JSON.stringify(sendText),
@@ -103,7 +103,7 @@ export const model ={
     }
     const send = async()=>{
       try{
-        console.log(`send to ${new URL(url,base)}`)
+        console.log(`send to ${url}`)
         const response = await fetch(jsoneeSendURL,data)
         const st = response.status
         if(st!==200){
