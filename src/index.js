@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const fetch = require('node-fetch');
 const app = express();
 const fs = require('fs')
 const assert = require('assert')
@@ -36,12 +37,13 @@ app.all('/node/server',(request,response)=>{
   console.log(param)
   if(param.hasOwnProperty("jsoneeSendURL")){
     const url = param.jsoneeSendURL
+    const text = param.text
     console.log(`send to ${url}`)
     logger.info(`send to ${url}`)
     delete param.jsoneeSendURL 
 
     const data ={
-      body:JSON.stringify(param),
+      body:JSON.stringify(text),
       headers: {
         'user-agent': 'Mozilla/4.0 MDN Example',
         'content-type': 'application/json'
@@ -51,7 +53,7 @@ app.all('/node/server',(request,response)=>{
     const send = async() =>{
       try{
         const res = await fetch(url,data)
-        console.log(response.status)
+        console.log(res.status)
         const json = await res.json()
         response.json(json)
       }
@@ -63,6 +65,7 @@ app.all('/node/server',(request,response)=>{
         response.json(json)
       }
     }
+    send()
   }
   else{
     console.log("error:the key of jsoneeSendURL is reserved for jsonee's server")
